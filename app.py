@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, abort, session, g
 from markupsafe import escape
 from flask_sqlalchemy import SQLAlchemy
+import cgi
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bank.db'
@@ -30,10 +31,12 @@ def before_request():
     g.username=None
     if 'username' in session:
         g.username = session['username']
+    
 
 @app.route("/", methods=['GET','POST'])
 def home():
-    
+    if(g.username != None):
+        return redirect('/execpage')
     name=''
     passwd=''
     ppp =''
@@ -52,7 +55,7 @@ def home():
             session['username'] = request.form['uname']
             return redirect('/cashierpage')
         else:
-            flash("Wrong credentials. Please try again!")
+            flash('Invalid credentials. Please try again!')
     return render_template('index.html')
 
 @app.route('/execpage', methods=['GET','POST'])
