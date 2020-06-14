@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bank.db'
 db = SQLAlchemy(app)
-app.secret_key='daffjsdfyi76487p'
+app.secret_key='daffjsdfyi76487pa'
 
 # executive uname=admin password = 12345
 # cashier uname=cashier password = 12345
