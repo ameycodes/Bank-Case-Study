@@ -1,52 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Welcome Executive</title>
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<p>You are in the System, Executive</p>
-<hr>
-<div class="pure-menu pure-menu-horizontal">
-    <ul class="pure-menu-list">
-        <li class="pure-menu-item pure-menu-selected">
-            <a href="#" class="pure-menu-link">Home</a>
+<p>You are in the Customer Executive</p>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      
+      <ul class="nav navbar-nav">
+      
+        <li><a href="#">Home</a></li>
+        <li class="dropbtn"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Customer Management <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Create Customer</a></li>
+            <li><a href="#">Delete Customer</a></li>
+            <li><a href="#">Update Customer Details</a></li>
+          </ul>
         </li>
-        <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-            <a href="#" id="menuLink1" class="pure-menu-link">Customer Operations</a>
-            <ul class="pure-menu-children">
-                <li class="pure-menu-item">
-                    <a href="#" class="pure-menu-link">New Customer</a>
-                </li>
-                <li class="pure-menu-item">
-                    <a href="#" class="pure-menu-link">Update Customer</a>
-                </li>
-                <li class="pure-menu-item">
-                    <a href="#" class="pure-menu-link">Delete Customer</a>
-                </li>
-            </ul>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account Management <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Search Customer</a></li>
+          </ul>
         </li>
-        <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-            <a href="#" id="menuLink1" class="pure-menu-link">Account Operations</a>
-            <ul class="pure-menu-children">
-                <li class="pure-menu-item">
-                    <a href="#" class="pure-menu-link">New Account</a>
-                </li>
-                <li class="pure-menu-item">
-                    <a href="#" class="pure-menu-link">Update Account</a>
-                </li>
-                <li class="pure-menu-item">
-                    <a href="#" class="pure-menu-link">Delete Account</a>
-                </li>
-            </ul>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Status Details <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">View Customer Status</a></li>
+            <li><a href="#">View Account Status</a></li>
+          </ul>
         </li>
-        <li class="pure-menu-item pure-menu-selected">
-            <a href="/" class="pure-menu-link">Logout</a>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account Operations <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Create Account</a></li>
+            <li><a href="#">Delete Account</a></li>
+          </ul>
         </li>
-
-    </ul>
-</div>
-
-</body>
-</html>
+        <li><a href="#">Logout</a></li>
+    </div>
+  </nav>
+    
+  
+  
+  </body>
+  </html>
