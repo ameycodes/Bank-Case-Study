@@ -35,8 +35,10 @@ def before_request():
 
 @app.route("/", methods=['GET','POST'])
 def home():
-    if(g.username != None):
+    if(g.username == 'admin'):
         return redirect('/execpage')
+    elif(g.username == 'cashier'):
+        return redirect('/cashierpage')
     name=''
     passwd=''
     ppp =''
@@ -60,7 +62,6 @@ def home():
 
 @app.route('/execpage', methods=['GET','POST'])
 def home1():
-    
     if not g.username:
         abort(403)
     return render_template('home_executive.html', temp=session['username'])
@@ -68,9 +69,10 @@ def home1():
 @app.route('/cashierpage', methods=['GET','POST'])
 def home2():
     if 'username' in session:
-        return 'Logged in as %s' % escape(session['username'])
+        n = session['username']
+        return render_template('home_cashier.html',n=n )
+        # return 'Logged in as %s' % escape(session['username'])
     return 'You are not logged in'
-    return render_template('home_cashier.html')
 
 @app.route('/logout')
 def logout():
