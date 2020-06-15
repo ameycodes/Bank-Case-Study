@@ -115,6 +115,15 @@ def show_customer_details():
     records = Customer.query.all()
     return render_template('customerstatus.html',records=records)
 
+@app.route('/execpage/delete-customer', methods=['GET','POST'])
+def delete_customer():
+    if request.method=='POST':
+        search_id=request.form['custid']
+        result=Customer.query.filter(Customer.customerid == search_id).first()
+        db.session.delete(result)
+        db.session.commit()
+        return render_template('deleted_record.html', result=result)
+    return render_template('search_for_customer.html')
 
 @app.route('/logout')
 def logout():
