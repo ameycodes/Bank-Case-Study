@@ -119,8 +119,10 @@ def show_customer_details():
 def delete_customer():
     if request.method=='POST':
         search_id=request.form['custid']
-        result = Customer.query.filter(Customer.customerid == search_id).first()
-        return render_template('display_search_result.html', result=result)
+        result=Customer.query.filter(Customer.customerid == search_id).first()
+        db.session.delete(result)
+        db.session.commit()
+        return render_template('deleted_record.html', result=result)
     return render_template('search_for_customer.html')
 
 @app.route('/logout')
