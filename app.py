@@ -50,7 +50,6 @@ def before_request():
     g.username=None
     if 'username' in session:
         g.username = session['username']
-    
 
 @app.route("/", methods=['GET','POST'])
 def home():
@@ -109,7 +108,6 @@ def custcreate():
         return render_template('createcustomer.html',message=message)
     return render_template('createcustomer.html')
 
-
 @app.route('/execpage/customer-status', methods=['GET','POST'])
 def show_customer_details():
     records = Customer.query.all()
@@ -120,10 +118,33 @@ def delete_customer():
     if request.method=='POST':
         search_id=request.form['custid']
         result=Customer.query.filter(Customer.customerid == search_id).first()
+        if not result:
+            return render_template('search_for_customer.html')
         db.session.delete(result)
         db.session.commit()
         return render_template('deleted_record.html', result=result)
     return render_template('search_for_customer.html')
+
+@app.route('/execpage/update-customer', methods=['GET','POST'])
+def update_customer_details():
+    if request.method=='POST' and 'newcustname' in request.form:
+        d = request.form['custid']
+        r = Customer.query.get(d)
+        r.customername = request.form['newcustname']
+        r.customeraddr = request.form['newaddress']
+        r.customerage = request.form['newage']
+        r.customermsg = "Customer update complete"
+        r.customerupd = datetime.utcnow()
+        db.session.commit()
+        return render_template('updatecustomer2.html',r=r)
+    if request.method =='POST' and 'custid' in request.form:
+        search_id = request.form['custid']
+        record = Customer.query.filter(Customer.customerid == search_id).first()
+        if not record:
+            return render_template('search_for_customer.html')
+        return render_template('updatecustomer.html',record=record)
+    return render_template('search_for_customer.html')
+
 
 @app.route('/logout')
 def logout():

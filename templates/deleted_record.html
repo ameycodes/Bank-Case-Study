@@ -55,16 +55,17 @@
   </nav>
 <hr>
 
-<h2>The following record has been deleted</h2>
+<h3 style="text-align:center">The following record is deleted</h3>
+
 <hr>
 <table class="pure-table pure-table-bordered">
     <thead>
         <tr>
             <th>Customer ID</th>
             <th>Customer SSN ID</th>
-            <th>Status</th>
-            <th>Message</th>
-            <th>Last Updated</th>
+{#            <th>Status</th>#}
+{#            <th>Message</th>#}
+{#            <th>Last Updated</th>#}
             <th>Name</th>
         </tr>
     </thead>
@@ -72,9 +73,9 @@
         <tr>
             <td>{{ result.customerid }}</td>
             <td>{{ result.customerssn }}</td>
-            <td>{{ result.customerstatus }}</td>
-            <td>{{ result.customermsg }}</td>
-            <td>{{ result.customerupd }}</td>
+{#            <td>{{ result.customerstatus }}</td>#}
+{#            <td>{{ result.customermsg }}</td>#}
+{#            <td>{{ result.customerupd }}</td>#}
             <td>{{ result.customername }}</td>
         </tr>
     </tbody>

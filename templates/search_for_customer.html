@@ -18,7 +18,7 @@
 
 </head>
 <body>
-<h1>I'm here to create new customer</h1>
+<hr>
 <div>
     {% if message %}
         <p>{{ message }}</p>
@@ -64,12 +64,12 @@
 <form class="pure-form pure-form-aligned" align="center" method="POST">
     <fieldset>
         <div class="pure-control-group">
-            <label>Enter customer ID</label>
+            <label>Enter Customer ID</label>
             <input type="text" id="aligned-name" name="custid" placeholder="Customer ID" required="" />
             
         </div>
         <div class="pure-controls" align="center">
-          <button type="button" class="btn btn-danger">Delete</button>
+          <button type="submit" class="btn btn-danger">Enter</button>
             <button type="reset" class="pure-button pure-button-primary">Reset</button>
         </div>
     </fieldset>
