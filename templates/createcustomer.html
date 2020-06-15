@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create customer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+    .pure-input-1-2{
+    width: 188px !important;
+    height: 32px !important;
+    }
+    </style>
+
+</head>
+<body>
+<h1>im here to create new customer</h1>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+      <ul class="nav navbar-nav">
+
+        <li><a href="/execpage">Home</a></li>
+        <li class="dropbtn"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Customer Management <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/execpage/create-customer">Create Customer</a></li>
+            <li><a href="/execpage/delete-customer">Delete Customer</a></li>
+            <li><a href="/execpage/update-customer">Update Customer Details</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account Management <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Search Customer</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Status Details <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">View Customer Status</a></li>
+            <li><a href="#">View Account Status</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account Operations <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Create Account</a></li>
+            <li><a href="#">Delete Account</a></li>
+          </ul>
+        </li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+<hr>
+
+<form class="pure-form pure-form-aligned">
+    <fieldset>
+        <div class="pure-control-group">
+            <label for="aligned-name">Customer SSN ID</label>
+            <input type="text" id="aligned-name" name="ssnid" placeholder="SSN ID" required="" />
+            <span class="pure-form-message-inline">This is a required field.</span>
+        </div>
+        <div class="pure-control-group">
+            <label for="aligned-name">Customer Name</label>
+            <input type="text" id="aligned-name" name="custname" placeholder="Name" required=""/>
+            <span class="pure-form-message-inline">This is a required field.</span>
+        </div>
+        <div class="pure-control-group">
+            <label for="aligned-name">Age</label>
+            <input type="text" id="aligned-name" name="age" placeholder="Age" required=""/>
+            <span class="pure-form-message-inline">This is a required field.</span>
+        </div>
+        <div class="pure-control-group">
+            <label for="aligned-name">Address</label>
+            <input type="text" id="aligned-name" name="address" placeholder="Address" required=""/>
+            <span class="pure-form-message-inline">This is a required field.</span>
+        </div>
+
+{#        <div class="pure-u-1 pure-u-md-1-3">#}
+        <div class="pure-control-group">
+                <label for="multi-state">State</label>
+                <select name="state" id="multi-state" class="pure-input-1-2" >
+                    <option>Maharashtra</option>
+                    <option>Goa</option>
+                    <option>Karnataka</option>
+                </select>
+            <span class="pure-form-message-inline">This is a required field.</span>
+        </div>
+
+{#        <div class="pure-u-1 pure-u-md-1-3">#}
+        <div class="pure-control-group">
+                <label for="multi-city">City</label>
+                <select name="city" id="multi-city" class="pure-input-1-2">
+                    <option>Pune</option>
+                    <option>Panaji</option>
+                    <option>Bangalore</option>
+                </select>
+            <span class="pure-form-message-inline">This is a required field.</span>
+        </div>
+
+        <div class="pure-controls">
+            <button type="submit" class="pure-button pure-button-primary">Submit</button>
+            <button type="reset" class="pure-button pure-button-primary">Reset</button>
+        </div>
+    </fieldset>
+</form>
+
+
+</body>
+</html>

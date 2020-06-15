@@ -74,6 +74,11 @@ def home2():
         # return 'Logged in as %s' % escape(session['username'])
     return 'You are not logged in'
 
+@app.route('/execpage/create-customer', methods=['GET','POST'])
+def custcreate():
+    return render_template('createcustomer.html')
+
+
 @app.route('/logout')
 def logout():
     session.pop('username', None)
