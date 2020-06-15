@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, abort, session, g
 from markupsafe import escape
 from flask_sqlalchemy import SQLAlchemy
-import cgi
+from datetime import datetime
+import random
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bank.db'
@@ -25,6 +26,24 @@ class LoginCashier(db.Model):
 
     def __repr__(self):
         return 'Cashier: ' + self.cash_name
+
+class Customer(db.Model):
+    customerid = db.Column(db.Integer, primary_key=True, nullable=False)
+    customerssn = db.Column(db.Integer, nullable=False)
+    customeraccno = db.Column(db.Integer, nullable=False, default=0)
+    customeracctype = db.Column(db.String(15), nullable=False, default='N/A')
+    customerstatus = db.Column(db.String(15), nullable=False, default='Active')
+    customermsg = db.Column(db.String(50), nullable=False, default='Customer created successfully')
+    customerupd = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    customerage = db.Column(db.Integer, nullable=False)
+    customername = db.Column(db.String(30), nullable=False)
+    customeraddr = db.Column(db.String(100), nullable=False)
+    customerstate = db.Column(db.String(20), nullable=False)
+    customercity = db.Column(db.String(20), nullable=False)
+
+    def __repr__(self):
+        return 'Customer ' + str(self.customerid)
+
 
 @app.before_request
 def before_request():
@@ -76,7 +95,25 @@ def home2():
 
 @app.route('/execpage/create-customer', methods=['GET','POST'])
 def custcreate():
+    if request.method=='POST':
+        new_ssn = request.form['ssnid']
+        new_name = request.form['custname']
+        new_age = request.form['age']
+        new_address = request.form['address']
+        new_state = request.form['state']
+        new_city = request.form['city']
+        new_record = Customer(customerid=random.randint(100,999),customerssn=new_ssn,customerage=new_age,customername=new_name,customeraddr=new_address,customerstate=new_state,customercity=new_city)
+        db.session.add(new_record)
+        db.session.commit()
+        message = "User created successfully!"
+        return render_template('createcustomer.html',message=message)
     return render_template('createcustomer.html')
+
+
+@app.route('/execpage/customer-status', methods=['GET','POST'])
+def show_customer_details():
+    records = Customer.query.all()
+    return render_template('customerstatus.html',records=records)
 
 
 @app.route('/logout')
