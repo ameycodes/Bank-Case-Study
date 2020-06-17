@@ -175,6 +175,30 @@ def update_customer_details():
         return render_template('updatecustomer.html',record=record)
     return render_template('search_for_customer.html')
 
+@app.route('/execpage/create-account', methods=['GET','POST'])
+def create_account():
+    if request.method == 'POST' and 'depamt' in request.form:
+        check_customer = request.form['custid']
+        acc_type = request.form['acctype']
+        dep_amt = request.form['depamt']
+        r = Customer.query.get(check_customer)
+        if not r:
+            return render_template('createaccount.html', message="Create a Customer first!")
+        if r.customeraccno!=0:
+            return render_template('createaccount.html', message="Account already exists!")
+        r.customeraccno = random.randint(10000,99999)
+        r.customeracctype = acc_type
+        # r.customermsg = 'Account created successfully'
+        # r.customerupd = datetime.utcnow()
+        new_record = Transaction(accountid=r.customeraccno, transactionid=random.randint(1000,9999), balance=dep_amt, description='Deposit', transdate=datetime.utcnow(), amount=dep_amt)
+        db.session.add(new_record)
+        db.session.commit()
+        message = 'Account created successfully!'
+        return render_template('createaccount.html', message=message)
+    return render_template('createaccount.html')
+
+
+
 
 @app.route('/logout')
 def logout():
