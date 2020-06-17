@@ -97,7 +97,7 @@ def home1():
 def home2():
     if not (g.username == 'cashier'):
         abort(403)
-    return render_template('home_cashier.html', temp=session['username'])
+    return render_template('home_cashier.html', temp=session['username']) 
 
 @app.route('/execpage/create-customer', methods=['GET','POST'])
 def custcreate():
