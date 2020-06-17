@@ -34,20 +34,42 @@
     </div>
 </nav>
 
-<form class="pure-form pure-form-aligned" align="center" method="POST">
+<h3>Deposit money details</h3>
+
+
+<form class="pure-form pure-form-aligned" method="POST">
     <fieldset>
         <div class="pure-control-group">
-            <label>Enter Account ID</label>
-            <input type="text" id="aligned-name" name="accid" placeholder="Account ID" required="" />
-            
+            <label for="aligned-name">Customer ID</label>
+            <input type="text" id="aligned-name" name="custid" value="{{ record.customerid }}" readonly=""/>
         </div>
-        <div class="pure-controls" align="center">
-          <button type="submit" class="btn btn-danger">Enter</button>
-            <button type="reset" class="pure-button pure-button-primary">Reset</button>
+
+        <div class="pure-control-group">
+            <label for="aligned-name">Account ID</label>
+            <input type="text" id="aligned-name" name="accid" value="{{ record.customeraccno }}" readonly=""/>
+        </div>
+
+        <div class="pure-control-group">
+          <label for="aligned-name">Account Type</label>
+          <input type="text" id="aligned-name" name="acctype" value="{{ record.customeracctype }}" readonly=""/>
+        </div>
+
+        <div class="pure-control-group">
+          <label for="aligned-name">Balance</label>
+          <input type="text" id="aligned-name" name="acctype" value="{{ record2.balance }}" readonly=""/>
+        </div>
+
+        <div class="pure-control-group">
+            <label for="aligned-name">Deposit Amount</label>
+            <input type="text" id="aligned-name" name="deposit_amount" required=""/>
+            <span class="pure-form-message-inline">This is a required field.</span>
+        </div>
+
+        <div class="pure-controls">
+            <button type="submit" class="pure-button pure-button-primary">Submit</button>
         </div>
     </fieldset>
 </form>
-
     
   
   
