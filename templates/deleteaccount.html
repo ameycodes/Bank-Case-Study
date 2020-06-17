@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create customer</title>
+    <title>Create Account</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
@@ -18,6 +18,7 @@
 
 </head>
 <body>
+{#<h1>I'm here to create new customer</h1>#}
 <hr>
 <div>
     {% if message %}
@@ -60,17 +61,28 @@
     </div>
   </nav>
 <hr>
+<h3 style="text-align:center">Delete Account</h3>
 
 <form class="pure-form pure-form-aligned" align="center" method="POST">
     <fieldset>
         <div class="pure-control-group">
-            <label>Enter Customer ID</label>
-            <input type="text" id="aligned-name" name="custid" placeholder="Customer ID" required="" />
-            
+            <label for="aligned-name">Account ID</label>
+            <input type="text" id="aligned-name" name="accid" placeholder="Account ID" required="" />
+            <span class="pure-form-message-inline">This is a required field.</span>
         </div>
-        <div class="pure-controls" align="center">
-          <button type="submit" class="btn btn-danger">Enter</button>
-            <button type="reset" class="pure-button pure-button-primary">Reset</button>
+
+{#        <div class="pure-u-1 pure-u-md-1-3">#}
+        <div class="pure-control-group">
+                <label for="multi-state">Account Type</label>
+                <select name="acctype" id="multi-acctype" class="pure-input-1-2" >
+                    <option>Savings</option>
+                    <option>Current</option>
+                </select>
+            <span class="pure-form-message-inline">This is a required field.</span>
+        </div>
+
+        <div class="pure-controls">
+            <button type="submit" class="pure-button pure-button-primary">Delete Account</button>
         </div>
     </fieldset>
 </form>

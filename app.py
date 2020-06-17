@@ -197,6 +197,25 @@ def create_account():
         return render_template('createaccount.html', message=message)
     return render_template('createaccount.html')
 
+@app.route('/execpage/delete-account', methods=['GET','POST'])
+def delete_account():
+    if request.method == 'POST' and 'accid' in request.form:
+        check_account = request.form['accid']
+        check_type = request.form['acctype']
+        result = Customer.query.filter(Customer.customeraccno==check_account, Customer.customeracctype==check_type).first()
+        if not result:
+            return render_template('deleteaccount.html', message="Account doesn't exist!")
+        result.customeraccno = 0
+        result.customeracctype = 'N/A'
+        # db.session.delete(result)
+        db.session.commit()
+        s = Transaction.query.filter(Transaction.accountid==check_account).first()
+        if not s:
+            return render_template('deleteaccount.html')
+        db.session.delete(s)
+        db.session.commit()
+        return render_template('deleteaccount.html', message="Account Deleted Successfully!")
+    return render_template('deleteaccount.html')
 
 
 
