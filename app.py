@@ -40,10 +40,21 @@ class Customer(db.Model):
     customeraddr = db.Column(db.String(100), nullable=False)
     customerstate = db.Column(db.String(20), nullable=False)
     customercity = db.Column(db.String(20), nullable=False)
+    balance = db.Column(db.Integer, nullable=False, default=0)
 
     def __repr__(self):
         return 'Customer ' + str(self.customerid)
 
+class Transaction(db.Model):
+    accountid = db.Column(db.Integer, primary_key=True, nullable=False)
+    transactionid = db.Column(db.Integer, nullable=False)
+    balance = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.String(15), nullable=False, default='N/A')
+    transdate = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    amount = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return 'Transaction ' + str(self.transactionid)
 
 @app.before_request
 def before_request():
@@ -80,18 +91,36 @@ def home():
 
 @app.route('/execpage', methods=['GET','POST'])
 def home1():
-    if not g.username:
+    if not (g.username == 'admin'):
         abort(403)
     return render_template('home_executive.html', temp=session['username'])
 
 @app.route('/cashierpage', methods=['GET','POST'])
 def home2():
-    if 'username' in session:
-        n = session['username']
-        return render_template('home_cashier.html',n=n )
-        # return 'Logged in as %s' % escape(session['username'])
-    return 'You are not logged in'
+    if not (g.username == 'cashier'):
+        abort(403)
+    return render_template('home_cashier.html', temp=session['username']) 
 
+@app.route('/cashierpage/deposit', methods=['GET','POST'])
+def deposit():
+    if request.method=='POST' and 'newcustname' in request.form:
+        d = request.form['custid']
+        r = Customer.query.get(d)
+        r.customername = request.form['newcustname']
+        r.customeraddr = request.form['newaddress']
+        r.customerage = request.form['newage']
+        r.customermsg = "Customer update complete"
+        r.customerupd = datetime.utcnow()
+        db.session.commit()
+        return render_template('depositmoney2.html',r=r)
+    if request.method =='POST' and 'accid' in request.form:
+        search_id = request.form['accid']
+        record = Customer.query.filter(Customer.customeraccno == search_id).first()
+        if not record:
+            return render_template('searchaccount.html')
+        return render_template('depositmoney.html',record=record)
+    return render_template('searchaccount.html')
+    
 @app.route('/execpage/create-customer', methods=['GET','POST'])
 def custcreate():
     if request.method=='POST':
