@@ -12,6 +12,7 @@
 <body>
 <h2>Hello {{ temp }}</h2>
 <p>You are in the Cashier section</p>
+
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       
@@ -34,21 +35,34 @@
       </ul>
     </div>
 </nav>
-<h3 style="text-align:center">Amount deposited successfully!</h3>
-<form class="pure-form pure-form-aligned" align="center" method="POST" >
+{% block content %}
+<div class="container">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    {% block page_content %}{% endblock %}
+</div>
+{% endblock %}
+<form class="pure-form pure-form-aligned" align="center" method="POST">
     <fieldset>
         <div class="pure-control-group">
-            <label for="aligned-name">Account ID</label>
-            <input type="text" id="aligned-name" name="accid" value="{{ r.accountid }}" readonly=""/>
+            <label>Enter Account ID</label>
+            <input type="text" id="aligned-name" name="accid" placeholder="Account ID" required="" />
+            
         </div>
-
-        <div class="pure-control-group">
-            <label for="aligned-name">Balance</label>
-            <input type="text" id="aligned-name" name="balance" value="{{ r.balance }}" readonly=""/>
+        <div class="pure-controls" align="center">
+          <button type="submit" class="btn btn-danger">Enter</button>
+            <button type="reset" class="pure-button pure-button-primary">Reset</button>
         </div>
-
     </fieldset>
 </form>
 
-</body>
-</html>
+    
+  
+  
+  </body>
+  </html>

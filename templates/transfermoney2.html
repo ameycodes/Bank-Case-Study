@@ -12,6 +12,7 @@
 <body>
 <h2>Hello {{ temp }}</h2>
 <p>You are in the Cashier section</p>
+
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       
@@ -34,21 +35,21 @@
       </ul>
     </div>
 </nav>
-<h3 style="text-align:center">Amount deposited successfully!</h3>
-<form class="pure-form pure-form-aligned" align="center" method="POST" >
+  <h3 style="text-align:center">Amount transferred successfully!</h3>
+<form class="pure-form pure-form-aligned" method="POST">
     <fieldset>
         <div class="pure-control-group">
-            <label for="aligned-name">Account ID</label>
-            <input type="text" id="aligned-name" name="accid" value="{{ r.accountid }}" readonly=""/>
+            <label for="aligned-name">Source Account Balance</label>
+            <input type="text" id="aligned-name" name="custid" value="{{ sid.balance }}" readonly=""/>
         </div>
 
         <div class="pure-control-group">
-            <label for="aligned-name">Balance</label>
-            <input type="text" id="aligned-name" name="balance" value="{{ r.balance }}" readonly=""/>
+            <label for="aligned-name">Target Account Balance</label>
+            <input type="text" id="aligned-name" name="accid" value="{{ tid.balance }}" readonly=""/>
         </div>
 
     </fieldset>
 </form>
-
-</body>
-</html>
+  
+  </body>
+  </html>

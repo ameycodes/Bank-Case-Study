@@ -12,6 +12,7 @@
 <body>
 <h2>Hello {{ temp }}</h2>
 <p>You are in the Cashier section</p>
+
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       
@@ -34,21 +35,44 @@
       </ul>
     </div>
 </nav>
-<h3 style="text-align:center">Amount deposited successfully!</h3>
-<form class="pure-form pure-form-aligned" align="center" method="POST" >
+  {% block content %}
+<div class="container">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    {% block page_content %}{% endblock %}
+</div>
+{% endblock %}
+  <form class="pure-form pure-form-aligned" method="POST">
     <fieldset>
+
         <div class="pure-control-group">
-            <label for="aligned-name">Account ID</label>
-            <input type="text" id="aligned-name" name="accid" value="{{ r.accountid }}" readonly=""/>
+            <label for="aligned-name">Source Accound ID</label>
+            <input type="text" id="aligned-name" name="sourceid" required=""/>
+            <span class="pure-form-message-inline">This is a required field.</span>
         </div>
 
         <div class="pure-control-group">
-            <label for="aligned-name">Balance</label>
-            <input type="text" id="aligned-name" name="balance" value="{{ r.balance }}" readonly=""/>
+            <label for="aligned-name">Target Account ID</label>
+            <input type="text" id="aligned-name" name="targetid" required=""/>
+            <span class="pure-form-message-inline">This is a required field.</span>
         </div>
 
+        <div class="pure-control-group">
+            <label for="aligned-name">Transfer Amount</label>
+            <input type="text" id="aligned-name" name="transfer_amount" required=""/>
+            <span class="pure-form-message-inline">This is a required field.</span>
+        </div>
+
+        <div class="pure-controls">
+            <button type="submit" class="pure-button pure-button-primary">Transfer</button>
+        </div>
     </fieldset>
-</form>
-
-</body>
-</html>
+</form>  
+  
+  </body>
+  </html>
