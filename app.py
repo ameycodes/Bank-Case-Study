@@ -240,6 +240,15 @@ def update_customer_details():
         return render_template('updatecustomer.html',record=record)
     return render_template('search_for_customer.html')
 
+@app.route('/execpage/search-customer', methods=['GET','POST'])
+def search_customer():
+    if request.method=='POST' and 'custid' in request.form:
+        r = Customer.query.get(request.form['custid'])
+        if not r:
+            return render_template('search_for_customer.html')
+        return render_template('customersearch.html',r=r)
+    return render_template('search_for_customer.html')
+
 @app.route('/execpage/create-account', methods=['GET','POST'])
 def create_account():
     if request.method == 'POST' and 'depamt' in request.form:

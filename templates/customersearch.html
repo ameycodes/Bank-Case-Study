@@ -2,21 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create customer</title>
+    <title>Customer Search Results</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+    <style>
+        table{
+            margin-left: auto;
+            margin-right: auto;
+            }
+        tr:hover {background-color: #f5f5f5;}
+    </style>
 </head>
 <body>
-{#<h1>I'm here to update customer</h1>#}
-{#<div>#}
-{#    {% if message %}#}
-{#        <p>{{ message }}</p>#}
-{#    {% endif %}#}
-{#</div>#}
 <hr>
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -53,55 +54,45 @@
     </div>
   </nav>
 <hr>
-<h3>Update customer details</h3>
 
-<form class="pure-form pure-form-aligned" method="POST">
+<h3 style="text-align:center">Customer Search result</h3>
+<form class="pure-form pure-form-aligned" align="center" method="POST" >
     <fieldset>
         <div class="pure-control-group">
-            <label for="aligned-name">Customer SSN ID</label>
-            <input type="text" id="aligned-name" name="ssnid" value="{{ record.customerssn }}" readonly=""/>
-        </div>
-
-        <div class="pure-control-group">
             <label for="aligned-name">Customer ID</label>
-            <input type="text" id="aligned-name" name="custid" value="{{ record.customerid }}" readonly=""/>
+            <input type="text" id="aligned-name" name="custid" value="{{ r.customerid }}" readonly=""/>
         </div>
 
         <div class="pure-control-group">
-            <label for="aligned-name">Old Customer Name</label>
-            <input type="text" id="aligned-name" name="custname" value="{{ record.customername }}" readonly=""/>
+            <label for="aligned-name">Customer Name</label>
+            <input type="text" id="aligned-name" name="custname" value="{{ r.customername }}" readonly=""/>
         </div>
 
         <div class="pure-control-group">
-            <label for="aligned-name">New Customer Name</label>
-            <input type="text" id="aligned-name" name="newcustname" placeholder="Name" required=""/>
-            <span class="pure-form-message-inline">This is a required field.</span>
+            <label for="aligned-name">Address</label>
+            <input type="text" id="aligned-name" name="address" placeholder="{{ r.customeraddr }}" readonly=""/>
         </div>
 
         <div class="pure-control-group">
-            <label for="aligned-name">Old Address</label>
-            <input type="text" id="aligned-name" name="address" placeholder="{{ record.customeraddr }}" readonly=""/>
-        </div>
-        <div class="pure-control-group">
-            <label for="aligned-name">New Address</label>
-            <input type="text" id="aligned-name" name="newaddress" placeholder="Address" required=""/>
-            <span class="pure-form-message-inline">This is a required field.</span>
+            <label for="aligned-name">City</label>
+            <input type="text" id="aligned-name" name="city" placeholder="{{ r.customercity }}" readonly=""/>
         </div>
 
         <div class="pure-control-group">
-            <label for="aligned-name">Old Age</label>
-            <input type="text" id="aligned-name" name="age" placeholder="{{ record.customerage }}" readonly=""/>
+            <label for="aligned-name">State</label>
+            <input type="text" id="aligned-name" name="state" placeholder="{{ r.customerstate }}" readonly=""/>
         </div>
+
         <div class="pure-control-group">
-            <label for="aligned-name">New Age</label>
-            <input type="text" id="aligned-name" name="newage" placeholder="Age" required=""/>
-            <span class="pure-form-message-inline">This is a required field.</span>
+            <label for="aligned-name">Age</label>
+            <input type="text" id="aligned-name" name="age" placeholder="{{ r.customerage }}" readonly=""/>
         </div>
 
-
-        <div class="pure-controls">
-            <button type="submit" class="pure-button pure-button-primary">Update</button>
+        <div class="pure-control-group">
+            <label for="aligned-name">Customer Status</label>
+            <input type="text" id="aligned-name" name="status" placeholder="{{ r.customerstatus }}" readonly=""/>
         </div>
+
     </fieldset>
 </form>
 
