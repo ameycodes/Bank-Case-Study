@@ -122,6 +122,49 @@ def deposit():
         return render_template('depositmoney.html',record=record, record2=record2)
     return render_template('searchaccount.html')
     
+@app.route('/cashierpage/withdraw', methods=['GET','POST'])
+def withdraw():
+    if request.method=='POST' and 'withdraw_amount' in request.form:
+        d = request.form['accid']
+        r = Transaction.query.get(d)
+        if(r.balance<int(request.form['withdraw_amount'])):
+            flash("Please enter a withdrawal amount less than the balance in the account")
+            return redirect('/cashierpage/withdraw')
+        r.balance = r.balance - int(request.form['withdraw_amount'])
+        r.amount = request.form['withdraw_amount']
+        r.description = "Deposit"
+        r.transdate = datetime.utcnow()
+        r.transactionid=random.randint(100,999)
+        db.session.commit()
+        return render_template('withdrawmoney2.html',r=r)
+    if request.method =='POST' and 'accid' in request.form:
+        search_id = request.form['accid']
+        record = Customer.query.filter(Customer.customeraccno == search_id).first()
+        record2 = Transaction.query.filter(Transaction.accountid == search_id).first()
+        if not record or not record2:
+            return render_template('searchaccountwithdraw.html')
+        return render_template('withdrawmoney.html',record=record, record2=record2)
+    return render_template('searchaccountwithdraw.html')
+
+@app.route('/cashierpage/transfer', methods=['GET','POST'])
+def transfer():
+    if request.method == 'POST':
+        temp1 = request.form['sourceid']
+        temp2 = request.form['targetid']
+        sid = Transaction.query.get(temp1)
+        tid = Transaction.query.get(temp2)
+
+        if(sid.balance < int(request.form['transfer_amount'])):
+            flash("Source account should have more balance than the transfer amount")
+            return redirect('/cashierpage/transfer')
+        else:
+            sid.balance -= int(request.form['transfer_amount'])
+            tid.balance += int(request.form['transfer_amount'])
+            db.session.commit()
+            return render_template('transfermoney2.html', sid=sid, tid=tid)
+    return render_template('transfermoney.html')
+
+    
 @app.route('/execpage/create-customer', methods=['GET','POST'])
 def custcreate():
     if request.method=='POST':
