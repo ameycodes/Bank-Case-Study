@@ -172,7 +172,16 @@ def transfer():
             return render_template('transfermoney2.html', sid=sid, tid=tid)
     return render_template('transfermoney.html')
 
-    
+@app.route('/cashierpage/searchaccount', methods=['GET','POST'])
+def get_acc_info():
+    if request.method=='POST' and 'accid' in request.form:
+        records = Transaction.query.get(request.form['accid'])
+        records2 = Customer.query.filter(Customer.customeraccno==request.form['accid']).first()
+        if not records or not records2:
+            return render_template('searchaccount.html')
+        return render_template('accountstatuscashier.html',records=records, records2=records2)
+    return render_template('searchaccount.html')
+
 @app.route('/execpage/create-customer', methods=['GET','POST'])
 def custcreate():
     if request.method=='POST':

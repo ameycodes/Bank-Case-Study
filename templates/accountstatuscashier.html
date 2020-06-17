@@ -14,9 +14,9 @@
 <p>You are in the Cashier section</p>
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
-      
+
       <ul class="nav navbar-nav">
-      
+
         <li><a href="/cashierpage">Home</a></li>
         <li class="dropbtn"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Transactions <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -35,22 +35,32 @@
     </div>
 </nav>
 
-<form class="pure-form pure-form-aligned" align="center" method="POST">
-    <fieldset>
-        <div class="pure-control-group">
-            <label>Enter Account ID</label>
-            <input type="text" id="aligned-name" name="accid" placeholder="Account ID" required="" />
-            
-        </div>
-        <div class="pure-controls" align="center">
-          <button type="submit" class="btn btn-danger">Enter</button>
-            <button type="reset" class="pure-button pure-button-primary">Reset</button>
-        </div>
-    </fieldset>
-</form>
+<h3 style="text-align:center">Account Status</h3>
 
-    
-  
-  
+<table class="pure-table pure-table-bordered" align="center">
+    <thead>
+        <tr>
+            <th>Customer ID</th>
+            <th>Account ID</th>
+            <th>Account Type</th>
+            <th>Account Status</th>
+            <th>Last Updated</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ records2.customerid }}</td>
+            <td>{{ records2.customeraccno }}</td>
+            <td>{{ records2.customeracctype }}</td>
+            <td>{{ records2.customerstatus }}</td>
+            <td>{{ records.transdate }}</td>
+            <td>{{ records.balance }}</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
   </body>
   </html>
