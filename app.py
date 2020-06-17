@@ -106,7 +106,7 @@ def deposit():
     if request.method=='POST' and 'deposit_amount' in request.form:
         d = request.form['accid']
         r = Transaction.query.get(d)
-        r.balance = r.balance + request.form['deposit_amount']
+        r.balance = r.balance + int(request.form['deposit_amount'])
         r.amount = request.form['deposit_amount']
         r.description = "Deposit"
         r.transdate = datetime.utcnow()
@@ -117,7 +117,7 @@ def deposit():
         search_id = request.form['accid']
         record = Customer.query.filter(Customer.customeraccno == search_id).first()
         record2 = Transaction.query.filter(Transaction.accountid == search_id).first()
-        if not record:
+        if not record or not record2:
             return render_template('searchaccount.html')
         return render_template('depositmoney.html',record=record, record2=record2)
     return render_template('searchaccount.html')
