@@ -44,6 +44,15 @@ class Customer(db.Model):
     def __repr__(self):
         return 'Customer ' + str(self.customerid)
 
+class Transaction(db.Model):
+    accountid = db.Column(db.Integer, primary_key=True, nullable=False)
+    transactionid = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.String(15), nullable=False, default='N/A')
+    transdate = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    amount = db.Column(db.Integer, nullable=False, default=0)    
+
+    def __repr__(self):
+        return 'Transaction ' + str(self.transactionid)
 
 @app.before_request
 def before_request():
@@ -80,17 +89,15 @@ def home():
 
 @app.route('/execpage', methods=['GET','POST'])
 def home1():
-    if not g.username:
+    if not (g.username == 'admin'):
         abort(403)
     return render_template('home_executive.html', temp=session['username'])
 
 @app.route('/cashierpage', methods=['GET','POST'])
 def home2():
-    if 'username' in session:
-        n = session['username']
-        return render_template('home_cashier.html',n=n )
-        # return 'Logged in as %s' % escape(session['username'])
-    return 'You are not logged in'
+    if not (g.username == 'cashier'):
+        abort(403)
+    return render_template('home_cashier.html', temp=session['username'])
 
 @app.route('/execpage/create-customer', methods=['GET','POST'])
 def custcreate():

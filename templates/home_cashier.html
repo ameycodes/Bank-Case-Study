@@ -1,26 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Welcome Cashier</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <title>Welcome Executive</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div>
-    {% if n %}
-        <h1>Logged in as Cashier bruh say that again {{ n }}</h1>
-    {% endif %}
-</div>
+<h2>Hello {{ temp }}</h2>
+<p>You are in the Cashier section</p>
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
+      
       <ul class="nav navbar-nav">
+      
+        <li><a href="/cashierpage">Home</a></li>
+        <li class="dropbtn"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Transactions <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/cashierpage/deposit">Deposit Money</a></li>
+            <li><a href="/cashierpage/withdraw">Withdraw Money</a></li>
+            <li><a href="/cashierpage/transfer">Transfer money</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account Details <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/cashierpage/searchaccount">Search Account</a></li>
+            <li><a href="/cashierpage/viewstatement">View Account Statement</a></li>
+          </ul>
         <li><a href="/logout">Logout</a></li>
       </ul>
     </div>
-</nav>
-
-</body>
-</html>
+  </nav>
+    
+  
+  
+  </body>
+  </html>
