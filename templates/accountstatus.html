@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Customer Status</title>
+    <title>Account Status</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
@@ -55,28 +55,30 @@
   </nav>
 <hr>
 
-<h3 style="text-align:center">Customer Status</h3>
+<h3 style="text-align:center">Account Status</h3>
 
 <table class="pure-table pure-table-bordered">
     <thead>
         <tr>
             <th>Customer ID</th>
-            <th>Customer SSN ID</th>
-            <th>Status</th>
+            <th>Account ID</th>
+            <th>Account Type</th>
+            <th>Account Status</th>
             <th>Message</th>
             <th>Last Updated</th>
-            <th>Name</th>
+            <th>Balance</th>
         </tr>
     </thead>
     <tbody>
         {% for r in records %}
         <tr>
-            <td>{{ r.customerid }}</td>
-            <td>{{ r.customerssn }}</td>
-            <td>{{ r.customerstatus }}</td>
-            <td>{{ r.customermsg }}</td>
-            <td>{{ r.customerupd }}</td>
-            <td>{{ r.customername }}</td>
+            <td>{{ r[0].customerid }}</td>
+            <td>{{ r[0].customeraccno }}</td>
+            <td>{{ r[0].customeracctype }}</td>
+            <td>{{ r[0].customerstatus }}</td>
+            <td>Account Creation Complete</td>
+            <td>{{ r[1].transdate }}</td>
+            <td>{{ r[1].balance }}</td>
         </tr>
         {% endfor %}
     </tbody>

@@ -132,7 +132,7 @@ def withdraw():
             return redirect('/cashierpage/withdraw')
         r.balance = r.balance - int(request.form['withdraw_amount'])
         r.amount = request.form['withdraw_amount']
-        r.description = "Deposit"
+        r.description = "Withdraw"
         r.transdate = datetime.utcnow()
         r.transactionid=random.randint(100,999)
         db.session.commit()
@@ -160,6 +160,14 @@ def transfer():
         else:
             sid.balance -= int(request.form['transfer_amount'])
             tid.balance += int(request.form['transfer_amount'])
+            sid.description = "Withdraw"
+            tid.description = "Deposit"
+            sid.transdate = datetime.utcnow()
+            sid.transactionid = random.randint(100, 999)
+            tid.transdate = sid.transdate
+            tid.transactionid = sid.transactionid
+            sid.amount = int(request.form['transfer_amount'])
+            tid.amount = int(request.form['transfer_amount'])
             db.session.commit()
             return render_template('transfermoney2.html', sid=sid, tid=tid)
     return render_template('transfermoney.html')
@@ -185,6 +193,11 @@ def custcreate():
 def show_customer_details():
     records = Customer.query.all()
     return render_template('customerstatus.html',records=records)
+
+@app.route('/execpage/account-status', methods=['GET','POST'])
+def show_account_details():
+    records = db.session.query(Customer, Transaction).join(Transaction, Customer.customeraccno==Transaction.accountid).all()
+    return render_template('accountstatus.html',records=records)
 
 @app.route('/execpage/delete-customer', methods=['GET','POST'])
 def delete_customer():
