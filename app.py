@@ -40,18 +40,18 @@ class Customer(db.Model):
     customeraddr = db.Column(db.String(100), nullable=False)
     customerstate = db.Column(db.String(20), nullable=False)
     customercity = db.Column(db.String(20), nullable=False)
-    balance = db.Column(db.Integer, nullable=False, default=0)
+
 
     def __repr__(self):
         return 'Customer ' + str(self.customerid)
 
 class Transaction(db.Model):
     accountid = db.Column(db.Integer, primary_key=True, nullable=False)
-    transactionid = db.Column(db.Integer, nullable=False)
+    transactionid = db.Column(db.Integer, nullable=False, default = 0)
     balance = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(15), nullable=False, default='N/A')
     transdate = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    amount = db.Column(db.Integer, nullable=False)
+    amount = db.Column(db.Integer, nullable=False, default = 0)
 
     def __repr__(self):
         return 'Transaction ' + str(self.transactionid)
@@ -103,22 +103,23 @@ def home2():
 
 @app.route('/cashierpage/deposit', methods=['GET','POST'])
 def deposit():
-    if request.method=='POST' and 'newcustname' in request.form:
-        d = request.form['custid']
-        r = Customer.query.get(d)
-        r.customername = request.form['newcustname']
-        r.customeraddr = request.form['newaddress']
-        r.customerage = request.form['newage']
-        r.customermsg = "Customer update complete"
-        r.customerupd = datetime.utcnow()
+    if request.method=='POST' and 'deposit_amount' in request.form:
+        d = request.form['accid']
+        r = Transaction.query.get(d)
+        r.balance = r.balance + request.form['deposit_amount']
+        r.amount = request.form['deposit_amount']
+        r.description = "Deposit"
+        r.transdate = datetime.utcnow()
+        r.transactionid=random.randint(100,999)
         db.session.commit()
         return render_template('depositmoney2.html',r=r)
     if request.method =='POST' and 'accid' in request.form:
         search_id = request.form['accid']
         record = Customer.query.filter(Customer.customeraccno == search_id).first()
+        record2 = Transaction.query.filter(Transaction.accountid == search_id).first()
         if not record:
             return render_template('searchaccount.html')
-        return render_template('depositmoney.html',record=record)
+        return render_template('depositmoney.html',record=record, record2=record2)
     return render_template('searchaccount.html')
     
 @app.route('/execpage/create-customer', methods=['GET','POST'])

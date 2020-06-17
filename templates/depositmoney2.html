@@ -33,10 +33,21 @@
       </ul>
     </div>
 </nav>
+<h3 style="text-align:center">Amount deposited successfully!</h3>
+<form class="pure-form pure-form-aligned" align="center" method="POST" >
+    <fieldset>
+        <div class="pure-control-group">
+            <label for="aligned-name">Account ID</label>
+            <input type="text" id="aligned-name" name="accid" value="{{ r.accountid }}" readonly=""/>
+        </div>
 
+        <div class="pure-control-group">
+            <label for="aligned-name">Balance</label>
+            <input type="text" id="aligned-name" name="balance" value="{{ r.balance }}" readonly=""/>
+        </div>
 
-    
-  
-  
-  </body>
-  </html>
+    </fieldset>
+</form>
+
+</body>
+</html>
