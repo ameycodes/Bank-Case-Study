@@ -10,8 +10,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bank.db'
 db = SQLAlchemy(app)
 app.secret_key='daffjsdfyi76487pa'
 
-# executive uname=admin password = 12345
-# cashier uname=cashier password = 12345
+# executive username = admin , password = admin
+# cashier username = cashier , password = cashier
 
 
 class LoginExec(db.Model):
