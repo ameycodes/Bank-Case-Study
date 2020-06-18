@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, abo
 from markupsafe import escape
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import time
 import random
 
 app = Flask(__name__)
@@ -55,6 +56,16 @@ class Transaction(db.Model):
 
     def __repr__(self):
         return 'Transaction ' + str(self.transactionid)
+
+class Transaction2(db.Model):
+    trans_accid = db.Column(db.Integer, nullable=False)
+    trans_id = db.Column(db.Integer, nullable=False)
+    trans_description = db.Column(db.String(15), nullable=False)
+    trans_date = db.Column(db.DateTime, primary_key=True, nullable=False)
+    trans_amt = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return 'Transactiondetail ' + str(self.trans_accid)
 
 @app.before_request
 def before_request():
@@ -110,7 +121,9 @@ def deposit():
         r.amount = request.form['deposit_amount']
         r.description = "Deposit"
         r.transdate = datetime.utcnow()
-        r.transactionid=random.randint(100,999)
+        r.transactionid=random.randint(1000,9999)
+        trans_rec = Transaction2(trans_accid=r.accountid, trans_id=r.transactionid, trans_description=r.description, trans_date=r.transdate, trans_amt=r.amount)
+        db.session.add(trans_rec)
         db.session.commit()
         return render_template('depositmoney2.html',r=r)
     if request.method =='POST' and 'accid' in request.form:
@@ -134,7 +147,9 @@ def withdraw():
         r.amount = request.form['withdraw_amount']
         r.description = "Withdraw"
         r.transdate = datetime.utcnow()
-        r.transactionid=random.randint(100,999)
+        r.transactionid=random.randint(1000,9999)
+        trans_rec = Transaction2(trans_accid=r.accountid, trans_id=r.transactionid, trans_description=r.description, trans_date=r.transdate, trans_amt=r.amount)
+        db.session.add(trans_rec)
         db.session.commit()
         return render_template('withdrawmoney2.html',r=r)
     if request.method =='POST' and 'accid' in request.form:
@@ -163,11 +178,16 @@ def transfer():
             sid.description = "Withdraw"
             tid.description = "Deposit"
             sid.transdate = datetime.utcnow()
-            sid.transactionid = random.randint(100, 999)
-            tid.transdate = sid.transdate
+            sid.transactionid = random.randint(1000, 9999)
+            time.sleep(0.1)
+            tid.transdate = datetime.utcnow()
             tid.transactionid = sid.transactionid
             sid.amount = int(request.form['transfer_amount'])
             tid.amount = int(request.form['transfer_amount'])
+            trans_rec1 = Transaction2(trans_accid=sid.accountid, trans_id=sid.transactionid, trans_description=sid.description, trans_date=sid.transdate, trans_amt=int(request.form['transfer_amount']))
+            trans_rec2 = Transaction2(trans_accid=tid.accountid, trans_id=tid.transactionid, trans_description=tid.description, trans_date=tid.transdate, trans_amt=int(request.form['transfer_amount']))
+            db.session.add(trans_rec1)
+            db.session.add(trans_rec2)
             db.session.commit()
             return render_template('transfermoney2.html', sid=sid, tid=tid)
     return render_template('transfermoney.html')
@@ -181,6 +201,16 @@ def get_acc_info():
             return render_template('searchaccount.html')
         return render_template('accountstatuscashier.html',records=records, records2=records2)
     return render_template('searchaccount.html')
+
+@app.route('/cashierpage/viewstatement', methods=['GET','POST'])
+def get_transaction_details():
+    if request.method=='POST' and 'accid' in request.form:
+        ac = request.form['accid']
+        nos = int(request.form['trans'])
+        ans = Transaction2.query.filter(Transaction2.trans_accid==ac).limit(nos).all()
+        return render_template('transactionstatement.html', ans=ans)
+    return render_template('transactionstatement.html')
+
 
 @app.route('/execpage/create-customer', methods=['GET','POST'])
 def custcreate():
@@ -264,8 +294,12 @@ def create_account():
         r.customeracctype = acc_type
         # r.customermsg = 'Account created successfully'
         # r.customerupd = datetime.utcnow()
-        new_record = Transaction(accountid=r.customeraccno, transactionid=random.randint(1000,9999), balance=dep_amt, description='Deposit', transdate=datetime.utcnow(), amount=dep_amt)
+        t_id = random.randint(1000,9999)
+        t_date = datetime.utcnow()
+        new_record = Transaction(accountid=r.customeraccno, transactionid=t_id, balance=dep_amt, description='Deposit', transdate=t_date, amount=dep_amt)
         db.session.add(new_record)
+        rec = Transaction2(trans_accid=r.customeraccno, trans_id=t_id, trans_description='Deposit', trans_date=t_date, trans_amt=dep_amt)
+        db.session.add(rec)
         db.session.commit()
         message = 'Account created successfully!'
         return render_template('createaccount.html', message=message)
@@ -287,6 +321,9 @@ def delete_account():
         if not s:
             return render_template('deleteaccount.html')
         db.session.delete(s)
+        ss = Transaction2.query.filter(Transaction2.trans_accid==check_account).all()
+        for k in ss:
+            db.session.delete(k)
         db.session.commit()
         return render_template('deleteaccount.html', message="Account Deleted Successfully!")
     return render_template('deleteaccount.html')
