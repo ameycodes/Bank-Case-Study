@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Welcome Executive</title>
+  <title>Withdraw Money</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
@@ -10,7 +10,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h2>Hello {{ temp }}</h2>
+{#<h2>Hello {{ temp }}</h2>#}
 <p>You are in the Cashier section</p>
 
 <nav class="navbar navbar-inverse">
@@ -36,10 +36,10 @@
     </div>
 </nav>
 
-<h3>Withdraw money details</h3>
+<h3 style="text-align: center">Withdraw money details</h3>
 
 
-<form class="pure-form pure-form-aligned" method="POST">
+<form class="pure-form pure-form-aligned" method="POST" align="center">
     <fieldset>
         <div class="pure-control-group">
             <label for="aligned-name">Customer ID</label>
@@ -64,7 +64,7 @@
         <div class="pure-control-group">
             <label for="aligned-name">Withdraw Amount</label>
             <input type="text" id="aligned-name" name="withdraw_amount" required=""/>
-            <span class="pure-form-message-inline">This is a required field.</span>
+{#            <span class="pure-form-message-inline">This is a required field.</span>#}
         </div>
 
         <div class="pure-controls">

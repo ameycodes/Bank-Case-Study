@@ -121,7 +121,7 @@ def deposit():
         r.amount = request.form['deposit_amount']
         r.description = "Deposit"
         r.transdate = datetime.utcnow()
-        r.transactionid=random.randint(1000,9999)
+        r.transactionid=random.randint(100000000,999999999)
         trans_rec = Transaction2(trans_accid=r.accountid, trans_id=r.transactionid, trans_description=r.description, trans_date=r.transdate, trans_amt=r.amount)
         db.session.add(trans_rec)
         db.session.commit()
@@ -147,7 +147,7 @@ def withdraw():
         r.amount = request.form['withdraw_amount']
         r.description = "Withdraw"
         r.transdate = datetime.utcnow()
-        r.transactionid=random.randint(1000,9999)
+        r.transactionid=random.randint(100000000,999999999)
         trans_rec = Transaction2(trans_accid=r.accountid, trans_id=r.transactionid, trans_description=r.description, trans_date=r.transdate, trans_amt=r.amount)
         db.session.add(trans_rec)
         db.session.commit()
@@ -178,7 +178,7 @@ def transfer():
             sid.description = "Withdraw"
             tid.description = "Deposit"
             sid.transdate = datetime.utcnow()
-            sid.transactionid = random.randint(1000, 9999)
+            sid.transactionid = random.randint(100000000,999999999)
             time.sleep(0.1)
             tid.transdate = datetime.utcnow()
             tid.transactionid = sid.transactionid
@@ -221,7 +221,7 @@ def custcreate():
         new_address = request.form['address']
         new_state = request.form['state']
         new_city = request.form['city']
-        new_record = Customer(customerid=random.randint(100,999),customerssn=new_ssn,customerage=new_age,customername=new_name,customeraddr=new_address,customerstate=new_state,customercity=new_city)
+        new_record = Customer(customerid=random.randint(100000000,999999999),customerssn=new_ssn,customerage=new_age,customername=new_name,customeraddr=new_address,customerstate=new_state,customercity=new_city)
         db.session.add(new_record)
         db.session.commit()
         message = "User created successfully!"
@@ -290,11 +290,11 @@ def create_account():
             return render_template('createaccount.html', message="Create a Customer first!")
         if r.customeraccno!=0:
             return render_template('createaccount.html', message="Account already exists!")
-        r.customeraccno = random.randint(10000,99999)
+        r.customeraccno = random.randint(100000000,999999999)
         r.customeracctype = acc_type
         # r.customermsg = 'Account created successfully'
         # r.customerupd = datetime.utcnow()
-        t_id = random.randint(1000,9999)
+        t_id = random.randint(100000000,999999999)
         t_date = datetime.utcnow()
         new_record = Transaction(accountid=r.customeraccno, transactionid=t_id, balance=dep_amt, description='Deposit', transdate=t_date, amount=dep_amt)
         db.session.add(new_record)
